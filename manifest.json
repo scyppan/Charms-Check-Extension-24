@@ -1,0 +1,19 @@
+{
+    "name": "Charms Check Extension v24",
+    "version": "24.0.0",
+    "description": "A pre-alpha google meet based extension for Charms Check",
+	"content_scripts": [
+		{
+			"css": ["style.css"],
+			"matches": ["https://meet.google.com/*"],
+			"js": ["script.js"],
+			"run_at": "document_end"
+		}
+	],
+    "manifest_version": 3,
+    "author": "Scyppan",
+	"action":{
+        "default_popup": "index.html",
+        "default_title": "Charms Check Chrome Extension for Google Meet"
+    }
+}
