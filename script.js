@@ -47,7 +47,7 @@ function disablemutationobserver() {
 
 function assignselectors() {
     if (!selectors.chatbtn) { selectors.chatbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div:nth-child(11) > div > div > div.jsNRx > div > div:nth-child(4) > div > div > span > button > i.google-symbols.ebW6mc.NtU4hc'); }
-    if (!selectors.submitbtn) { selectors.submitbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div.R3Gmyc > div:nth-child(2) > div > div.hWX4r > div > div.SjMC3 > div.mcadHd > span > button > i'); }
+    if (!selectors.submitbtn) { selectors.submitbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div.R3Gmyc > div:nth-child(2) > div > div.hWX4r > div > div.SjMC3 > div.mcadHd > span > button'); }
     if (!selectors.moreoptionsbtn) { selectors.moreoptionsbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div:nth-child(11) > div > div > div.jsNRx > div > div > div > span > button > div'); }
     if (!selectors.collapsedchatbtn) { selectors.collapsedchatbtn = document.querySelector('#yDmH0d > div.TZFSLb.AM6FT.P9KVBf.qjTEB > span > div.G8AM9 > div:nth-child(4) > div > div > span > button'); }
     if (!selectors.mainscreen) { selectors.mainscreen = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div:nth-child(2) > div.axUSnc.cZXVke.P9KVBf > div.dkjMxf.i8wGAe.ZbBNqf > div > div.CNjCjf'); }
@@ -137,7 +137,7 @@ function testpost() {
         } else if (selectors.chatbtn) {
             clickchatandpost();
         } else if (selectors.moreoptionsbtn) {
-            clickmoreoptionsthenpost();
+            clickmoreoptionsbtn();
         } else {
             console.error("Error posting to chat, but here's your roll result...");
         }
@@ -149,66 +149,113 @@ function testpost() {
 function clickchatandpost() {
     console.log("It was this one that had happened!!");
     selectors.chatbtn.click();
-    setTimeout(() => postmsgtochatarea("hi mum"), 150);
+    setTimeout(() => postmsgtochatarea("hi mum"), 3000);
 }
 
-function clickmoreoptionsthenpost() {
-    console.log("this one happened!!");
+function clicksubmitbtn(attempts = 0) {
+    assignselectors();
+
+    if (selectors.submitbtn) {
+        const messageContainer = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div.R3Gmyc > div:nth-child(2) > div > div.hWX4r > div > div.tyW8df > div.Ge9Kpc.z38b6');
+        const initialChildCount = messageContainer ? messageContainer.childElementCount : null;
+
+        if (initialChildCount !== null) {
+            selectors.submitbtn.disabled = false; // Ensure the button is not disabled
+            selectors.submitbtn.click();
+
+            function confirmmsgposted(attempts = 0) {
+                const currentChildCount = messageContainer.childElementCount;
+                if (currentChildCount > initialChildCount) {
+                    console.log("Message posted successfully.");
+                } else if (attempts < 1000) {
+                    console.log(`Message not confirmed, attempt ${attempts}`);
+                    setTimeout(() => confirmmsgposted(attempts + 1), 50);
+                } else {
+                    console.error("Message not posted after 1000 attempts.");
+                }
+            }
+
+            setTimeout(() => confirmmsgposted(), 50);
+        } else {
+            console.error("Message container not found.");
+        }
+    } else if (attempts < 1000) {
+        console.log(`submitbtn not found, attempt ${attempts}`);
+        selectors.submitbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div.R3Gmyc > div:nth-child(2) > div > div.hWX4r > div > div.SjMC3 > div.mcadHd > span > button'); 
+        setTimeout(() => clicksubmitbtn(attempts + 1), 50);
+    } else {
+        console.error("submitbtn not found after 1000 attempts.");
+    }
+}
+
+
+function clickmoreoptionsbtn(attempts = 0) {
+    console.log("clicking more options btn");
 
     selectors.moreoptionsbtn.click();
 
-    function tryAssignCollapsedChatBtn(attempts = 0) {
+    setTimeout(() => {
         selectors.collapsedchatbtn = document.querySelector('#yDmH0d > div.TZFSLb.AM6FT.P9KVBf.qjTEB > span > div.G8AM9 > div:nth-child(4) > div > div > span > button');
-
         if (selectors.collapsedchatbtn) {
-            console.log("clicking collapsed chat button:", selectors.collapsedchatbtn);
-            selectors.collapsedchatbtn.click();
-            setTimeout(() => tryAssignChatArea(), 150);
+            tryassigncollapsedchatbtn(attempts);
         } else if (attempts < 1000) {
-            console.log(`collapsedchatbtn not found, attempt ${attempts}`);
-            setTimeout(() => tryAssignCollapsedChatBtn(attempts + 1), 100);
+            console.log(`collapsedchatbtn not found, retrying moreoptionsbtn click, attempt ${attempts}`);
+            setTimeout(() => clickmoreoptionsbtn(attempts + 1), 3000);
         } else {
             console.error("collapsedchatbtn not found after 1000 attempts.");
         }
-    }
+    }, 150);
+}
 
-    function tryAssignChatArea(attempts = 0) {
-        selectors.chatarea = document.querySelector('#bfTqV'); // Ensure the correct selector for chatarea
-        if (selectors.chatarea) {
-            console.log("chatarea assigned:", selectors.chatarea);
-            postmsgtochatarea("hi mum");
-        } else if (attempts < 1000) {
-            setTimeout(() => {
-                selectors.collapsedchatbtn.click();
-                tryAssignChatArea(attempts + 1);
-            }, 100);
-        } else {
-            console.error("chatarea not found after 1000 attempts.");
-        }
+function tryassigncollapsedchatbtn(attempts = 0) {
+    if (selectors.collapsedchatbtn) {
+        console.log("clicking collapsed chat button:", selectors.collapsedchatbtn);
+        selectors.collapsedchatbtn.click();
+        setTimeout(() => tryassignchatarea(), 150);
+    } else if (attempts < 1000) {
+        console.log(`collapsedchatbtn not found, attempt ${attempts}`);
+        setTimeout(() => tryassigncollapsedchatbtn(attempts + 1), 100);
+    } else {
+        console.error("collapsedchatbtn not found after 1000 attempts.");
     }
+}
 
-    setTimeout(() => tryAssignCollapsedChatBtn(), 150);
+function tryassignchatarea(attempts = 0) {
+    selectors.chatarea = document.querySelector('#bfTqV'); // Ensure the correct selector for chatarea
+
+    if (selectors.chatarea) {
+        console.log("chatarea assigned:", selectors.chatarea);
+        postmsgtochatarea("hi mum");
+    } else if (attempts < 1000) {
+        setTimeout(() => {
+            selectors.collapsedchatbtn.click();
+            tryassignchatarea(attempts + 1);
+        }, 100);
+    } else {
+        console.error("chatarea not found after 1000 attempts.");
+    }
 }
 
 
-function postmsgtochatarea(msg){
-    selectors.chatarea.textContent = msg;
-    let attempts = 0;
+function postmsgtochatarea(msg) {
+    if (selectors.chatarea) {
+        selectors.chatarea.textContent = msg;
 
-    function tryAssignAndSubmit() {
-        assignselectors();
-
-        if (selectors.submitbtn) {
-            selectors.submitbtn.click();
-        } else if (attempts < 1000) {
-            attempts++;
-            setTimeout(tryAssignAndSubmit, 100);
-        } else {
-            console.error("Failed to click submit button after 1000 attempts.");
+        function trysubmittobutton(attempts = 0) {
+            assignselectors();
+            if (selectors.submitbtn) {
+                clicksubmitbtn();
+            } else if (attempts < 1000) {
+                setTimeout(() => trysubmittobutton(attempts + 1), 100);
+            } else {
+                console.error("submitbtn not found after 1000 attempts.");
+            }
         }
-    }
 
-    tryAssignAndSubmit();
+        setTimeout(() => trysubmittobutton(), 100);
+    } else {
+        console.error("chatarea not found.");
+    }
 }
 
 function callfunction(msg){
