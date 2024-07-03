@@ -1,17 +1,17 @@
 //This script ensures that we're fully in a google meet call
 let observerconnected = true;
-let mainscreen= null;
+let endcallbtn= null;
 
 const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
-        if (mainscreen) {
+        if (endcallbtn) {
             if (observerconnected) {
                 disablemutationobserver();
                 initializecharmscheck();
             }
         } else {
-            console.log("searching for main screen");
-            attempttoassignmainscreen();
+            console.log("searching for end call btn");
+            attempttoassignendcallbtn();
         }
     });
 });
@@ -22,10 +22,10 @@ observer.observe(document.body, {
     subtree: true
 });
 
-function attempttoassignmainscreen() {
-    mainscreen = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(25) > div.crqnQb > div:nth-child(2) > div.axUSnc.cZXVke.P9KVBf > div.dkjMxf.i8wGAe.ZbBNqf > div > div.CNjCjf');
-    if (mainscreen) {
-        console.log("mainscreen found", mainscreen);
+function attempttoassignendcallbtn() {
+    endcallbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(26) > div.crqnQb > div:nth-child(11) > div > div > div.Tmb7Fd > div > div.NHaLPe > span > button');
+    if (endcallbtn) {
+        console.log("endcallbtn found", endcallbtn);
     }
 }
 

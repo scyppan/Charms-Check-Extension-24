@@ -6,7 +6,7 @@
 		{
 			"css": ["style.css"],
 			"matches": ["https://meet.google.com/*"],
-			"js": ["main.js", "interface.js", "test.js", "mutation.js", "panel.js", "selectors.js"],
+			"js": ["main.js", "mutation.js", "panel.js", "crosssite.js"],
 			"run_at": "document_end"
 		}
 	],

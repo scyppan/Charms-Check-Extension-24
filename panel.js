@@ -1,23 +1,25 @@
+let charmscheckpanel=null;
+
 function createcharmscheckpanel() {
     // Create a parent container
     parentContainer = document.createElement('div');
     parentContainer.id = 'parent-container';
 
     // Get the charmscheckpanel element
-    selectors.charmscheckpanel = document.getElementById('charmscheckpanel');
-    if (!selectors.charmscheckpanel) {
-        selectors.charmscheckpanel = document.createElement('div');
-        selectors.charmscheckpanel.id = "charmscheckpanel";
-        selectors.charmscheckpanel.classList.add('collapsed');
+    charmscheckpanel = document.getElementById('charmscheckpanel');
+    if (!charmscheckpanel) {
+        charmscheckpanel = document.createElement('div');
+        charmscheckpanel.id = "charmscheckpanel";
+        charmscheckpanel.classList.add('collapsed');
 
         // Add some content to the panel to make it visible
         var content = document.createElement('div');
         content.innerHTML = '<p>Charms Check Extension v24</p>';
-        selectors.charmscheckpanel.appendChild(content);
+        charmscheckpanel.appendChild(content);
     }
 
     // Append the charmscheckpanel to the parent container
-    parentContainer.appendChild(selectors.charmscheckpanel);
+    parentContainer.appendChild(charmscheckpanel);
 
     // Create a button to toggle the panel
     var toggleButton = document.createElement('button');
@@ -25,12 +27,12 @@ function createcharmscheckpanel() {
     toggleButton.classList.add('toggle-button');
 
     toggleButton.addEventListener('click', function () {
-        if (selectors.charmscheckpanel.classList.contains('expanded')) {
-            selectors.charmscheckpanel.classList.remove('expanded');
-            selectors.charmscheckpanel.classList.add('collapsed');
+        if (charmscheckpanel.classList.contains('expanded')) {
+            charmscheckpanel.classList.remove('expanded');
+            charmscheckpanel.classList.add('collapsed');
         } else {
-            selectors.charmscheckpanel.classList.remove('collapsed');
-            selectors.charmscheckpanel.classList.add('expanded');
+            charmscheckpanel.classList.remove('collapsed');
+            charmscheckpanel.classList.add('expanded');
         }
     });
 
