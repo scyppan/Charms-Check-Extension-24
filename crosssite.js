@@ -49,7 +49,7 @@ function postmsg(msg) {
                     if (newMessageCount > initialMessageCount) {
                         resolve();
                     } else {
-                        reject(new Error("Message was not posted."));
+                        console.log("Message was not posted.");
                     }
                 }, 1000);
             } else if (attempts < 50) {
