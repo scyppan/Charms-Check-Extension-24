@@ -23,7 +23,7 @@ observer.observe(document.body, {
 });
 
 function attempttoassignendcallbtn() {
-    endcallbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(26) > div.crqnQb > div:nth-child(11) > div > div > div.Tmb7Fd > div > div.NHaLPe > span > button');
+    endcallbtn = document.querySelector('#yDmH0d > c-wiz > div > div > div:nth-child(26) > div.crqnQb > div.fJsklc.nulMpf.Didmac.G03iKb > div > div > div.Tmb7Fd > div > div.NHaLPe > span > button');
     if (endcallbtn) {
         console.log("endcallbtn found", endcallbtn);
     }
