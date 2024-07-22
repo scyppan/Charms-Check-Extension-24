@@ -1,12 +1,16 @@
 {
     "name": "Charms Check Extension v24",
-    "version": "24.0.0",
+    "version": "24.0.1",
     "description": "A pre-alpha google meet based extension for Charms Check",
 	"content_scripts": [
 		{
 			"css": ["style.css"],
 			"matches": ["https://meet.google.com/*"],
-			"js": ["main.js", "mutation.js", "panel.js", "crosssite.js"],
+			"exclude_matches": [
+                "https://meet.google.com/landing*",
+                "https://meet.google.com/*/unsupported"
+            ],
+			"js": ["panel.js", "crosssite.js", "main.js", "mutation.js"],
 			"run_at": "document_end"
 		}
 	],

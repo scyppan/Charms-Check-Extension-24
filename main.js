@@ -1,7 +1,6 @@
-// Global state to track if chat window is opened and if an action is in progress
 let chatWindowOpened = false;
 let actionInProgress = false;
-let username="";
+let username = "";
 
 // Utility function to create and dispatch a click event
 function simulateClick(element) {
@@ -127,7 +126,6 @@ function masterScript() {
                 setTimeout(() => tryAssignButtons(attempts + 1), 200);
             }
         }
-
         tryAssignButtons();
     });
 }
@@ -140,7 +138,7 @@ function initializecharmscheck() {
     masterScript().then(() => {
         addeventlistener();
         assignusername();
-        msgpostmanager(`${username} has logged in with their charms check extension enabled!`);
+        msgpostmanager(`{AUTOMATED MESSAGE} Hey everyone! I have logged in with my charms check extension enabled!`);
         console.log("Testing complete");
     }).catch(err => {
         console.error("Error during testing:", err);
@@ -151,7 +149,7 @@ function assignusername(){
     const targetElement = document.getElementsByClassName('dwSJ2e')[0];
     console.log(targetElement);
     if(targetElement.innerHTML){
-        username=targetElement.innerHTML;
+        username = targetElement.innerHTML;
         console.log(username);
     }
 }

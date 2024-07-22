@@ -64,12 +64,19 @@ function postmsg(msg) {
     });
 }
 
+function simulateClick(element) {
+    element.dispatchEvent(new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    }));
+}
 
-function addeventlistener(){
+function addeventlistener() {
     window.addEventListener("message", function(event) {
         // Ensure the message is coming from the expected origin, if possible
         if (event.origin !== "https://charmscheck.com") {
-          return;
+            return;
         }
 
         // Process the message
