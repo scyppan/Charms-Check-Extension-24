@@ -2,14 +2,13 @@ let observer = null;
 
 // Function to check if we're in the chat interface
 function isInChatInterface() {
-    // Adjust the selector to better identify the chat interface
     const chatButton = document.querySelector('[aria-label="Chat with everyone"]');
     const chatWindow = document.querySelector('[jsname="ME4pNd"]');
     return chatButton !== null || chatWindow !== null;
 }
 
-// Function to initialize MutationObserver
-function initMutationObserver() {
+// Function to initialize the main call MutationObserver
+function initMainCallObserver() {
     const targetNode = document.body;
     const config = { childList: true, subtree: true };
 
@@ -36,5 +35,5 @@ if (isInChatInterface()) {
     initializecharmscheck();
 } else {
     console.log("Not in chat interface. Setting up MutationObserver...");
-    initMutationObserver();
+    initMainCallObserver();
 }

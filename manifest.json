@@ -1,6 +1,6 @@
 {
     "name": "Charms Check Extension v24",
-    "version": "24.0.1",
+    "version": "24.1.0",
     "description": "A pre-alpha google meet based extension for Charms Check",
 	"content_scripts": [
 		{

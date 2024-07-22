@@ -58,7 +58,7 @@
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     opacity: 0; /* Initially hidden */
-    animation: moveIn 2s 2s ease-out forwards, rotateIn 2s 2s ease-out forwards; /* Combined animations with delay */
+    animation: rotateAndGlide 2s 2s ease-out forwards;
     transform: translate(-50%, -50%); /* Center the button */
     transform-origin: center; /* Set the origin point for transformations */
 }
@@ -70,27 +70,11 @@
     margin: auto; /* Center the image within the button */
 }
 
-/* Animation for moving from center and rotating */
-@keyframes moveIn {
+@keyframes rotateAndGlide {
     0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.5); /* Start centered */
-    }
-    50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: rotate(0deg) translateX(0) translateY(0);
     }
     100% {
-        transform: translate(0, 0) scale(1); /* Final position */
-        opacity: 1; /* Ensure the element remains visible */
-    }
-}
-
-@keyframes rotateIn {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
+        transform: rotate(360deg) translateX(100px) translateY(50px);
     }
 }

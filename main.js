@@ -1,6 +1,5 @@
 let chatWindowOpened = false;
 let actionInProgress = false;
-let username = "";
 
 // Utility function to create and dispatch a click event
 function simulateClick(element) {
@@ -135,21 +134,23 @@ function initializecharmscheck() {
     createcharmscheckpanel();
     console.log("Charmscheck initialized");
     console.log("Testing...");
+
     masterScript().then(() => {
         addeventlistener();
-        assignusername();
+
+        return new Promise((resolve, reject) => {
+            clickChatButton().then(() => {
+                console.log("Chat window confirmed.");
+                resolve();
+            }).catch(err => {
+                console.error("Failed to open chat window:", err);
+                reject(err);
+            });
+        });
+    }).then(() => {
         msgpostmanager(`{AUTOMATED MESSAGE} Hey everyone! I have logged in with my charms check extension enabled!`);
-        console.log("Testing complete");
+        console.log("Message posted.");
     }).catch(err => {
         console.error("Error during testing:", err);
     });
-}
-
-function assignusername(){
-    const targetElement = document.getElementsByClassName('dwSJ2e')[0];
-    console.log(targetElement);
-    if(targetElement.innerHTML){
-        username = targetElement.innerHTML;
-        console.log(username);
-    }
 }
