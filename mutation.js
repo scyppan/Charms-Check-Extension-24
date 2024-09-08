@@ -37,3 +37,5 @@ if (isInChatInterface()) {
     console.log("Not in chat interface. Setting up MutationObserver...");
     initMainCallObserver();
 }
+
+//testing
